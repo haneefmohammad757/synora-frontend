@@ -1,0 +1,237 @@
+/* ==========================================
+        SYNORA PRODUCT GRID
+========================================== */
+
+.products-section{
+
+    padding:70px 8%;
+
+    background:#fafafa;
+
+}
+
+.products-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:45px;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.products-header h2{
+
+    font-size:36px;
+
+    color:#1f2937;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+
+}
+
+.products-header p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+.products-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.products-actions select{
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    border:1px solid #e5e7eb;
+
+    background:white;
+
+    color:#374151;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.products-actions select:hover{
+
+    border-color:#d81b60;
+
+}
+
+.products-actions select:focus{
+
+    border-color:#d81b60;
+
+    box-shadow:0 0 0 3px rgba(216,27,96,.12);
+
+}
+
+.product-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+
+    gap:30px;
+
+}
+
+.empty-products{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:80px 20px;
+
+    text-align:center;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+}
+
+.empty-products h3{
+
+    color:#111827;
+
+    font-size:28px;
+
+    margin-bottom:10px;
+
+}
+
+.empty-products p{
+
+    color:#6b7280;
+
+    font-size:16px;
+
+}
+
+@media(max-width:992px){
+
+.products-section{
+
+padding:60px 5%;
+
+}
+
+.products-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.products-header h2{
+
+font-size:30px;
+
+}
+
+.product-grid{
+
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+
+gap:22px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.products-section{
+
+padding:50px 20px;
+
+}
+
+.products-header{
+
+margin-bottom:30px;
+
+}
+
+.products-actions{
+
+width:100%;
+
+}
+
+.products-actions select{
+
+width:100%;
+
+}
+
+.product-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:18px;
+
+}
+
+}
+
+@media(max-width:500px){
+
+.product-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.products-header h2{
+
+font-size:26px;
+
+}
+
+.products-header p{
+
+font-size:14px;
+
+}
+
+.empty-products{
+
+padding:50px 15px;
+
+}
+
+.empty-products h3{
+
+font-size:22px;
+
+}
+
+}

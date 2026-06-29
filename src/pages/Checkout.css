@@ -1,0 +1,221 @@
+.checkout-page{
+
+    width:90%;
+
+    max-width:1300px;
+
+    margin:50px auto;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+}
+
+.checkout-card{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.checkout-card h2{
+
+    color:#1e3a8a;
+
+    margin-bottom:10px;
+
+}
+
+.checkout-card p{
+
+    color:#6b7280;
+
+    margin-bottom:25px;
+
+}
+
+.checkout-card input,
+
+.checkout-card textarea{
+
+    width:100%;
+
+    padding:14px 18px;
+
+    margin-bottom:18px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
+
+    box-sizing:border-box;
+
+}
+
+.checkout-card textarea{
+
+    resize:vertical;
+
+    min-height:110px;
+
+}
+
+.checkout-card input:focus,
+
+.checkout-card textarea:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+.checkout-right{
+
+    position:sticky;
+
+    top:30px;
+
+    height:fit-content;
+
+}
+
+.summary-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:18px 0;
+
+    font-size:15px;
+
+}
+
+.summary-item span{
+
+    color:#6b7280;
+
+}
+
+.summary-item strong{
+
+    color:#111827;
+
+}
+
+.payment-btn{
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.payment-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,.3);
+
+}
+
+.payment-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+.checkout-card hr{
+
+    margin:20px 0;
+
+    border:none;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+@media(max-width:900px){
+
+.checkout-page{
+
+grid-template-columns:1fr;
+
+}
+
+.checkout-right{
+
+position:static;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.checkout-page{
+
+width:95%;
+
+margin:25px auto;
+
+}
+
+.checkout-card{
+
+padding:20px;
+
+}
+
+.checkout-card h2{
+
+font-size:22px;
+
+}
+
+.payment-btn{
+
+font-size:16px;
+
+}
+
+}

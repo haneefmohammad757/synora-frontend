@@ -1,0 +1,571 @@
+.details-container{
+
+    max-width:1300px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+/* =======================
+      Back Button
+======================= */
+
+.back-btn{
+
+    background:none;
+
+    border:none;
+
+    color:#374151;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:25px;
+
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    color:#d81b60;
+
+    transform:translateX(-4px);
+
+}
+
+/* =======================
+      Main Card
+======================= */
+
+.details-card{
+
+    display:flex;
+
+    gap:50px;
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+}
+
+/* =======================
+      Image
+======================= */
+
+.details-image{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#fafafa;
+
+    border-radius:18px;
+
+    padding:30px;
+
+}
+
+.details-image img{
+
+    width:100%;
+
+    max-width:430px;
+
+    height:430px;
+
+    object-fit:contain;
+
+    transition:.35s;
+
+}
+
+.details-image:hover img{
+
+    transform:scale(1.05);
+
+}
+
+/* =======================
+      Info
+======================= */
+
+.details-info{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.category{
+
+    color:#d81b60;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.details-info h1{
+
+    font-size:40px;
+
+    color:#1f2937;
+
+    margin:12px 0;
+
+}
+
+.brand{
+
+    color:#6b7280;
+
+    margin-bottom:15px;
+
+}
+
+.brand strong{
+
+    color:#111827;
+
+}
+
+/* =======================
+      Rating
+======================= */
+
+.rating-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#f59e0b;
+
+    margin-bottom:22px;
+
+    font-size:15px;
+
+}
+
+.rating-box span{
+
+    color:#6b7280;
+
+}
+
+/* =======================
+      Price
+======================= */
+
+.price-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:20px;
+
+}
+
+.price-box h2{
+
+    font-size:42px;
+
+    color:#111827;
+
+    margin:0;
+
+}
+
+.old-price{
+
+    color:#9ca3af;
+
+    text-decoration:line-through;
+
+    font-size:22px;
+
+}
+
+.discount{
+
+    background:#d81b60;
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+/* =======================
+      Stock
+======================= */
+
+.stock{
+
+    margin-bottom:18px;
+
+    font-weight:600;
+
+}
+
+.stock.available{
+
+    color:#16a34a;
+
+}
+
+.stock.low{
+
+    color:#dc2626;
+
+}
+
+/* =======================
+      Delivery
+======================= */
+
+.delivery{
+
+    background:#fafafa;
+
+    border:1px solid #ececec;
+
+    padding:12px 16px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+    color:#374151;
+
+}
+
+/* =======================
+      Highlights
+======================= */
+
+.highlights{
+
+    margin:25px 0;
+
+    background:#fafafa;
+
+    padding:18px;
+
+    border-radius:14px;
+
+}
+
+.highlights h3{
+
+    color:#111827;
+
+    margin-bottom:12px;
+
+}
+
+.highlights ul{
+
+    padding-left:20px;
+
+}
+
+.highlights li{
+
+    margin-bottom:8px;
+
+    color:#4b5563;
+
+}
+
+/* =======================
+      Description
+======================= */
+
+.description{
+
+    margin:25px 0;
+
+    line-height:1.8;
+
+    color:#4b5563;
+
+}
+
+/* =======================
+      Quantity
+======================= */
+
+.quantity-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:30px;
+
+}
+
+.quantity-box button{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#111827;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.quantity-box button:hover{
+
+    background:#d81b60;
+
+}
+
+.quantity-box span{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    min-width:30px;
+
+    text-align:center;
+
+}
+
+/* =======================
+      Buttons
+======================= */
+
+.action-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+}
+
+.cart-btn,
+
+.buy-btn{
+
+    flex:1;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.cart-btn{
+
+    background:#111827;
+
+    color:white;
+
+}
+
+.cart-btn:hover{
+
+    background:#000;
+
+}
+
+.buy-btn{
+
+    background:#d81b60;
+
+    color:white;
+
+}
+
+.buy-btn:hover{
+
+    background:#c2185b;
+
+}
+
+/* =======================
+      Breadcrumb
+======================= */
+
+.breadcrumb{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+    color:#6b7280;
+
+}
+
+.breadcrumb span{
+
+    transition:.3s;
+
+}
+
+.breadcrumb span:hover{
+
+    color:#d81b60;
+
+}
+
+.separator{
+
+    color:#9ca3af;
+
+}
+
+.current{
+
+    color:#111827;
+
+    font-weight:600;
+
+}
+
+/* =======================
+      Responsive
+======================= */
+
+@media(max-width:950px){
+
+.details-card{
+
+flex-direction:column;
+
+}
+
+.details-image img{
+
+max-width:320px;
+
+height:320px;
+
+}
+
+.details-info h1{
+
+font-size:32px;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.details-container{
+
+padding:15px;
+
+}
+
+.details-card{
+
+padding:20px;
+
+gap:25px;
+
+}
+
+.details-info h1{
+
+font-size:26px;
+
+}
+
+.price-box h2{
+
+font-size:32px;
+
+}
+
+.old-price{
+
+font-size:18px;
+
+}
+
+}
