@@ -1,18 +1,22 @@
 /* ==========================================
-            PRODUCT GRID
+            ALL PRODUCTS PAGE
 ========================================== */
 
-.products-section{
+.all-products-page{
 
-    padding:70px 8%;
+    max-width:1400px;
 
-    background:#fafafa;
+    margin:40px auto;
+
+    padding:20px;
+
+    min-height:100vh;
 
 }
 
 /* ---------- HEADER ---------- */
 
-.section-header{
+.all-products-header{
 
     display:flex;
 
@@ -20,15 +24,15 @@
 
     align-items:center;
 
-    margin-bottom:40px;
+    gap:25px;
 
-    gap:20px;
+    margin-bottom:35px;
 
     flex-wrap:wrap;
 
 }
 
-.section-title{
+.all-products-header h1{
 
     font-size:38px;
 
@@ -40,7 +44,7 @@
 
 }
 
-.section-subtitle{
+.all-products-header p{
 
     color:#6b7280;
 
@@ -48,7 +52,9 @@
 
 }
 
-.section-actions{
+/* ---------- SEARCH & SORT ---------- */
+
+.all-products-actions{
 
     display:flex;
 
@@ -56,39 +62,29 @@
 
     gap:15px;
 
+    flex-wrap:wrap;
+
 }
 
-/* ---------- SORT ---------- */
+.all-products-actions input{
 
-.sort-dropdown{
+    width:320px;
 
-    padding:12px 18px;
+    padding:13px 18px;
 
     border:1px solid #e5e7eb;
 
     border-radius:12px;
 
-    background:white;
+    outline:none;
 
     font-size:15px;
-
-    color:#374151;
-
-    cursor:pointer;
-
-    outline:none;
 
     transition:.3s;
 
 }
 
-.sort-dropdown:hover{
-
-    border-color:#d81b60;
-
-}
-
-.sort-dropdown:focus{
+.all-products-actions input:focus{
 
     border-color:#d81b60;
 
@@ -96,23 +92,19 @@
 
 }
 
-/* ---------- VIEW ALL ---------- */
+.all-products-actions select{
 
-.view-all-btn{
+    padding:13px 18px;
 
-    background:#d81b60;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 22px;
+    border:1px solid #e5e7eb;
 
     border-radius:12px;
 
-    cursor:pointer;
+    background:white;
 
-    font-weight:600;
+    outline:none;
+
+    cursor:pointer;
 
     font-size:15px;
 
@@ -120,13 +112,17 @@
 
 }
 
-.view-all-btn:hover{
+.all-products-actions select:hover{
 
-    background:#be185d;
+    border-color:#d81b60;
 
-    transform:translateY(-2px);
+}
 
-    box-shadow:0 10px 25px rgba(216,27,96,.25);
+.all-products-actions select:focus{
+
+    border-color:#d81b60;
+
+    box-shadow:0 0 0 3px rgba(216,27,96,.15);
 
 }
 
@@ -136,7 +132,7 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
 
     gap:30px;
 
@@ -146,15 +142,21 @@
 
 .no-products{
 
-    grid-column:1/-1;
+    background:white;
+
+    border-radius:18px;
+
+    padding:80px 20px;
 
     text-align:center;
 
-    padding:60px;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.no-products h2{
 
     color:#6b7280;
-
-    font-size:22px;
 
 }
 
@@ -164,13 +166,21 @@
 
 @media(max-width:992px){
 
-.products-section{
+.all-products-page{
 
-padding:60px 5%;
+padding:20px;
 
 }
 
-.section-title{
+.all-products-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.all-products-header h1{
 
 font-size:32px;
 
@@ -178,9 +188,9 @@ font-size:32px;
 
 .product-grid{
 
-grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
 
-gap:24px;
+gap:22px;
 
 }
 
@@ -192,13 +202,13 @@ gap:24px;
 
 @media(max-width:768px){
 
-.products-section{
+.all-products-page{
 
-padding:45px 20px;
+padding:18px;
 
 }
 
-.section-header{
+.all-products-header{
 
 flex-direction:column;
 
@@ -206,25 +216,21 @@ align-items:flex-start;
 
 }
 
-.section-actions{
+.all-products-actions{
 
 width:100%;
-
-display:flex;
 
 flex-direction:column;
 
-gap:12px;
-
 }
 
-.sort-dropdown{
+.all-products-actions input{
 
 width:100%;
 
 }
 
-.view-all-btn{
+.all-products-actions select{
 
 width:100%;
 
@@ -235,18 +241,6 @@ width:100%;
 grid-template-columns:repeat(2,1fr);
 
 gap:18px;
-
-}
-
-.section-title{
-
-font-size:28px;
-
-}
-
-.section-subtitle{
-
-font-size:15px;
 
 }
 
@@ -264,13 +258,13 @@ grid-template-columns:1fr;
 
 }
 
-.section-title{
+.all-products-header h1{
 
-font-size:24px;
+font-size:28px;
 
 }
 
-.section-subtitle{
+.all-products-header p{
 
 font-size:14px;
 

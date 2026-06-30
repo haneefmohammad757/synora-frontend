@@ -1,6 +1,6 @@
 /* ===========================
-   SYNORA NAVBAR v2
-   Premium Meesho/Myntra Theme
+   SYNORA NAVBAR
+   Premium Responsive Theme
 =========================== */
 
 :root{
@@ -57,8 +57,6 @@
 
     -webkit-backdrop-filter:blur(14px);
 
-    border-bottom:1px solid transparent;
-
     transition:.35s;
 
     z-index:1000;
@@ -74,6 +72,10 @@
     box-shadow:var(--shadow);
 
 }
+
+/* ===========================
+            LOGO
+=========================== */
 
 .logo{
 
@@ -97,15 +99,7 @@
 
     border-radius:14px;
 
-    background:linear-gradient(
-
-        135deg,
-
-        #ec407a,
-
-        #d81b60
-
-    );
+    background:linear-gradient(135deg,#ec407a,#d81b60);
 
     display:flex;
 
@@ -125,13 +119,11 @@
 
     margin:0;
 
-    font-size:26px;
-
     color:var(--primary);
 
-    font-weight:800;
+    font-size:26px;
 
-    letter-spacing:.4px;
+    font-weight:800;
 
 }
 
@@ -139,17 +131,21 @@
 
     display:block;
 
-    margin-top:2px;
-
     color:var(--muted);
 
     font-size:11px;
+
+    margin-top:2px;
 
     letter-spacing:1px;
 
     text-transform:uppercase;
 
 }
+
+/* ===========================
+          NAV LINKS
+=========================== */
 
 .nav-links{
 
@@ -173,11 +169,11 @@
 
     border-radius:12px;
 
+    cursor:pointer;
+
     color:var(--text);
 
     font-weight:600;
-
-    cursor:pointer;
 
     transition:.25s;
 
@@ -190,6 +186,10 @@
     color:var(--primary);
 
 }
+
+/* ===========================
+        SEARCH
+=========================== */
 
 .search-box{
 
@@ -227,8 +227,6 @@
 
     color:var(--primary);
 
-    font-size:17px;
-
 }
 
 .search-box input{
@@ -241,8 +239,6 @@
 
     background:transparent;
 
-    color:var(--text);
-
     font-size:15px;
 
 }
@@ -252,6 +248,10 @@
     color:#9c7b87;
 
 }
+
+/* ===========================
+          ICONS
+=========================== */
 
 .nav-icon{
 
@@ -273,11 +273,9 @@
 
     border:1px solid var(--border);
 
-    transition:.3s;
-
     color:var(--text);
 
-    font-size:18px;
+    transition:.3s;
 
 }
 
@@ -289,24 +287,24 @@
 
     transform:translateY(-2px);
 
-    box-shadow:0 10px 20px rgba(216,27,96,.25);
-
 }
 
 .mobile-btn{
 
     display:none;
 
-    font-size:26px;
+    font-size:28px;
+
+    color:var(--primary);
 
     cursor:pointer;
 
-    color:var(--primary);
+    z-index:2500;
 
 }
 
 /* ===========================
-   AUTH BUTTONS
+        AUTH BUTTONS
 =========================== */
 
 .auth-buttons{
@@ -378,7 +376,7 @@
 }
 
 /* ===========================
-   PROFILE
+        PROFILE
 =========================== */
 
 .profile-area{
@@ -425,9 +423,9 @@
 
 .profile-button svg:first-child{
 
-    font-size:22px;
-
     color:var(--primary);
+
+    font-size:22px;
 
 }
 
@@ -453,7 +451,7 @@
 
     animation:dropdown .25s ease;
 
-    z-index:2000;
+    z-index:2200;
 
 }
 
@@ -485,9 +483,9 @@
 
     font-weight:600;
 
-    color:var(--text);
-
     transition:.25s;
+
+    color:var(--text);
 
 }
 
@@ -512,7 +510,36 @@
 }
 
 /* ===========================
-   RESPONSIVE
+        MOBILE OVERLAY
+=========================== */
+
+.mobile-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:1998;
+
+}
+
+.mobile-overlay.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+/* ===========================
+        RESPONSIVE
 =========================== */
 
 @media(max-width:1100px){
@@ -531,11 +558,31 @@
 
 }
 
+/* ===========================
+      MOBILE DRAWER
+=========================== */
+
 @media(max-width:900px){
+
+    .navbar{
+
+        padding:0 20px;
+
+    }
 
     .mobile-btn{
 
-        display:block;
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        font-size:30px;
+
+        cursor:pointer;
+
+        z-index:2501;
 
     }
 
@@ -543,13 +590,13 @@
 
         position:fixed;
 
-        top:78px;
+        top:0;
 
         right:-100%;
 
-        width:300px;
+        width:290px;
 
-        height:calc(100vh - 78px);
+        height:100vh;
 
         background:white;
 
@@ -561,11 +608,15 @@
 
         gap:18px;
 
-        padding:30px;
+        padding:95px 22px 30px;
 
-        transition:.35s;
+        transition:right .35s ease;
 
-        box-shadow:-10px 0 30px rgba(0,0,0,.08);
+        overflow-y:auto;
+
+        box-shadow:-12px 0 30px rgba(0,0,0,.15);
+
+        z-index:2500;
 
     }
 
@@ -579,6 +630,12 @@
 
         width:100%;
 
+        padding:14px 16px;
+
+        border-radius:12px;
+
+        font-size:16px;
+
     }
 
     .search-box{
@@ -591,11 +648,13 @@
 
         width:100%;
 
-        border-radius:14px;
+        height:48px;
 
         justify-content:flex-start;
 
         padding-left:18px;
+
+        border-radius:12px;
 
     }
 
@@ -603,7 +662,11 @@
 
         width:100%;
 
+        display:flex;
+
         flex-direction:column;
+
+        gap:12px;
 
     }
 
@@ -633,17 +696,21 @@
 
         position:relative;
 
-        top:10px;
+        top:12px;
 
         width:100%;
 
         box-shadow:none;
 
-        border-radius:14px;
+        border-radius:12px;
 
     }
 
 }
+
+/* ===========================
+      SMALL MOBILE
+=========================== */
 
 @media(max-width:600px){
 
@@ -651,7 +718,7 @@
 
         height:70px;
 
-        padding:0 18px;
+        padding:0 16px;
 
     }
 
@@ -679,11 +746,10 @@
 
     .nav-links{
 
-        top:70px;
+        width:85%;
 
-        height:calc(100vh - 70px);
+        padding-top:85px;
 
     }
 
 }
-

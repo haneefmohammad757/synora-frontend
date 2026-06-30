@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import ProductCard from "./ProductCard";
 import Loader from "./Loader";
 import "./ProductGrid.css";
 
 const ProductGrid = ({ search, selected }) => {
+
+    const navigate = useNavigate();
 
     const [products, setProducts] = useState([]);
 
@@ -14,11 +17,11 @@ const ProductGrid = ({ search, selected }) => {
 
     useEffect(() => {
 
-        loadProducts();
+        fetchProducts();
 
     }, []);
 
-    const loadProducts = async () => {
+    const fetchProducts = async () => {
 
         try {
 
@@ -42,142 +45,118 @@ const ProductGrid = ({ search, selected }) => {
 
     };
 
-    const filteredProducts = useMemo(() => {
-
-        let filtered = [...products];
-
-        filtered = filtered.filter(product => {
-
-            const productName = product.name.toLowerCase();
-
-            const category = (product.category || "General");
-
-            const matchesSearch =
-                productName.includes(search.toLowerCase());
-
-            const matchesCategory =
-                selected === "All" ||
-                category === selected;
-
-            return matchesSearch && matchesCategory;
-
-        });
-
-        switch (sortBy) {
-
-            case "low":
-
-                filtered.sort(
-                    (a, b) =>
-
-                        (a.price * (1 - (a.discount || 0) / 100))
-
-                        -
-
-                        (b.price * (1 - (b.discount || 0) / 100))
-
-                );
-
-                break;
-
-            case "high":
-
-                filtered.sort(
-                    (a, b) =>
-
-                        (b.price * (1 - (b.discount || 0) / 100))
-
-                        -
-
-                        (a.price * (1 - (a.discount || 0) / 100))
-
-                );
-
-                break;
-
-            case "discount":
-
-                filtered.sort(
-
-                    (a, b) =>
-
-                        (b.discount || 0)
-
-                        -
-
-                        (a.discount || 0)
-
-                );
-
-                break;
-
-            default:
-
-                break;
-
-        }
-
-        return filtered;
-
-    }, [products, search, selected, sortBy]);
-
     if (loading) {
 
         return <Loader />;
 
     }
 
+    const filteredProducts = products.filter(product => {
+
+        const matchSearch = product.name
+            .toLowerCase()
+            .includes(search.toLowerCase());
+
+        const category = product.category || "General";
+
+        const matchCategory =
+            selected === "All" ||
+            category === selected;
+
+        return matchSearch && matchCategory;
+
+    });
+
+    const sortedProducts = [...filteredProducts];
+
+    switch (sortBy) {
+
+        case "low":
+
+            sortedProducts.sort((a, b) => a.price - b.price);
+
+            break;
+
+        case "high":
+
+            sortedProducts.sort((a, b) => b.price - a.price);
+
+            break;
+
+        case "az":
+
+            sortedProducts.sort((a, b) =>
+                a.name.localeCompare(b.name)
+            );
+
+            break;
+
+        case "za":
+
+            sortedProducts.sort((a, b) =>
+                b.name.localeCompare(a.name)
+            );
+
+            break;
+
+        case "newest":
+
+            sortedProducts.sort((a, b) => b.id - a.id);
+
+            break;
+
+        default:
+
+            sortedProducts.sort((a, b) => b.id - a.id);
+
+    }
+
+    const featuredProducts = sortedProducts.slice(0, 6);
+
     return (
 
         <section
-
             id="products"
-
             className="products-section"
-
         >
 
-            <div className="products-header">
+            <div className="section-header">
 
                 <div>
 
-                    <h2>
+                    <h2 className="section-title">
 
-                        Explore Products
+                        Featured Products
 
                     </h2>
 
-                    <p>
+                    <p className="section-subtitle">
 
-                        {filteredProducts.length}
-
-                        {" "}products available
+                        Discover our latest collection
 
                     </p>
 
                 </div>
 
-                <div className="products-actions">
+                <div className="section-actions">
 
                     <select
-
+                        className="sort-dropdown"
                         value={sortBy}
-
-                        onChange={(e)=>
-
-                            setSortBy(
-
-                                e.target.value
-
-                            )
-
+                        onChange={(e) =>
+                            setSortBy(e.target.value)
                         }
-
                     >
 
                         <option value="featured">
 
                             Featured
+
+                        </option>
+
+                        <option value="newest">
+
+                            Newest
 
                         </option>
 
@@ -193,69 +172,67 @@ const ProductGrid = ({ search, selected }) => {
 
                         </option>
 
-                        <option value="discount">
+                        <option value="az">
 
-                            Biggest Discount
+                            A - Z
+
+                        </option>
+
+                        <option value="za">
+
+                            Z - A
 
                         </option>
 
                     </select>
 
+                    <button
+
+                        className="view-all-btn"
+
+                        onClick={() =>
+                            navigate("/products")
+                        }
+
+                    >
+
+                        View All →
+
+                    </button>
+
                 </div>
 
             </div>
 
-            {
+            <div className="product-grid">
 
-                filteredProducts.length === 0 ?
+                {
 
-                (
+                    featuredProducts.length > 0 ?
 
-                    <div className="empty-products">
+                        featuredProducts.map(product => (
 
-                        <h3>
+                            <ProductCard
+
+                                key={product.id}
+
+                                product={product}
+
+                            />
+
+                        ))
+
+                        :
+
+                        <h3 className="no-products">
 
                             No products found.
 
                         </h3>
 
-                        <p>
+                }
 
-                            Try changing category or search.
-
-                        </p>
-
-                    </div>
-
-                )
-
-                :
-
-                (
-
-                    <div className="product-grid">
-
-                        {
-
-                            filteredProducts.map(product => (
-
-                                <ProductCard
-
-                                    key={product.id}
-
-                                    product={product}
-
-                                />
-
-                            ))
-
-                        }
-
-                    </div>
-
-                )
-
-            }
+            </div>
 
         </section>
 
