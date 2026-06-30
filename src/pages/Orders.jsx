@@ -1,6 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
+import toast from "react-hot-toast";
+
+import {
+    FaBoxOpen,
+    FaCreditCard,
+    FaCheckCircle,
+    FaClock,
+    FaTimesCircle,
+    FaShoppingCart,
+    FaRedo,
+    FaMoneyBillWave
+} from "react-icons/fa";
+
 import "./Orders.css";
 
 const Orders = () => {
@@ -20,27 +33,30 @@ const Orders = () => {
         if (!userId) {
 
             navigate("/login");
+
             return;
 
         }
 
-        fetchOrders();
+        loadOrders();
 
     }, []);
 
-    const fetchOrders = async () => {
+    const loadOrders = async () => {
 
         try {
 
-            const response = await axios.get(`/orders/${userId}`);
+            const res = await axios.get(`/orders/${userId}`);
 
-            setOrders(response.data);
+            setOrders(res.data);
 
         }
 
-        catch (error) {
+        catch (err) {
 
-            console.error(error);
+            console.log(err);
+
+            toast.error("Unable to load orders.");
 
         }
 
@@ -52,9 +68,45 @@ const Orders = () => {
 
     };
 
+    const payNow = (orderId) => {
+
+        toast("Redirecting to payment...");
+
+        navigate("/checkout", {
+
+            state: {
+
+                pendingOrderId: orderId
+
+            }
+
+        });
+
+    };
+
+    const buyAgain = () => {
+
+        navigate("/");
+
+    };
+
+    const cancelOrder = () => {
+
+        toast("Cancel feature coming soon.");
+
+    };
+
     if (loading) {
 
-        return <h2 className="loading">Loading Orders...</h2>;
+        return (
+
+            <div className="orders-loading">
+
+                <h2>Loading your orders...</h2>
+
+            </div>
+
+        );
 
     }
 
@@ -62,7 +114,41 @@ const Orders = () => {
 
         <div className="orders-page">
 
-            <h1>My Orders</h1>
+            <div className="orders-header">
+
+                <div>
+
+                    <h1>
+
+                        <FaBoxOpen />
+
+                        My Orders
+
+                    </h1>
+
+                    <p>
+
+                        Track all your purchases in one place.
+
+                    </p>
+
+                </div>
+
+                <div className="orders-summary">
+
+                    <div>
+
+                        <span>Total Orders</span>
+
+                        <h2>{orders.length}</h2>
+
+                    </div>
+
+                    <FaShoppingCart />
+
+                </div>
+
+            </div>
 
             {
 
@@ -70,74 +156,125 @@ const Orders = () => {
 
                 (
 
-                    <h2 className="empty-orders">
+                    <div className="empty-orders">
 
-                        No orders placed yet.
+                        <FaBoxOpen />
 
-                    </h2>
+                        <h2>No Orders Yet</h2>
+
+                        <p>
+
+                            Start shopping and your orders will appear here.
+
+                        </p>
+
+                    </div>
 
                 )
 
                 :
 
-                (
+                orders.map(order => (
 
-                    orders.map((order) => (
+                    <div
+                        className="order-card"
+                        key={order.id}
+                    >
 
-                        <div
-                            className="order-card"
-                            key={order.id}
-                        >
+                        <div className="order-top">
 
-                            <div className="order-header">
+                            <div>
 
-                                <div>
+                                <h2>
 
-                                    <h3>
+                                    Order #{order.id}
 
-                                        Order #{order.id}
+                                </h2>
 
-                                    </h3>
+                                <p>
 
-                                    <p>
+                                    {
 
-                                        {new Date(order.orderDate).toLocaleString()}
+                                        new Date(
 
-                                    </p>
+                                            order.orderDate
 
-                                </div>
+                                        ).toLocaleString()
 
-                                <span
-                                    className={`status ${(order.status || "PENDING").toLowerCase()}`}
-                                >
+                                    }
 
-                                    {order.status || "PENDING"}
-
-                                </span>
+                                </p>
 
                             </div>
 
-                            <hr />
+                            <div
+                                className={`status ${(order.status || "PENDING").toLowerCase()}`}
+                            >
+
+                                {
+
+                                    order.status === "PAID"
+
+                                    ?
+
+                                    <>
+
+                                        <FaCheckCircle />
+
+                                        Paid
+
+                                    </>
+
+                                    :
+
+                                    order.status === "CANCELLED"
+
+                                    ?
+
+                                    <>
+
+                                        <FaTimesCircle />
+
+                                        Cancelled
+
+                                    </>
+
+                                    :
+
+                                    <>
+
+                                        <FaClock />
+
+                                        Pending
+
+                                    </>
+
+                                }
+
+                            </div>
+
+                        </div>
+                                                <div className="order-products">
 
                             {
 
                                 order.items?.map((item) => (
 
                                     <div
-                                        className="order-body"
+                                        className="order-product"
                                         key={item.id}
                                     >
 
                                         <img
-                                            className="order-image"
                                             src={
                                                 item.imageUrl ||
-                                                "https://placehold.co/120x120?text=No+Image"
+                                                "https://placehold.co/150x150?text=No+Image"
                                             }
                                             alt={item.productName}
+                                            className="product-image"
                                         />
 
-                                        <div className="order-details">
+                                        <div className="product-info">
 
                                             <h3>
 
@@ -147,7 +284,7 @@ const Orders = () => {
 
                                             <p>
 
-                                                Price : ₹ {item.price}
+                                                ₹ {item.price}
 
                                             </p>
 
@@ -173,15 +310,17 @@ const Orders = () => {
 
                             }
 
-                            <hr />
+                        </div>
 
-                            <div className="order-footer">
+                        <div className="order-bottom">
 
-                                <h3>
+                            <div className="order-total">
+
+                                <span>
 
                                     Total Amount
 
-                                </h3>
+                                </span>
 
                                 <h2>
 
@@ -191,11 +330,81 @@ const Orders = () => {
 
                             </div>
 
+                            <div className="order-actions">
+
+                                {
+
+                                    order.status === "PENDING" &&
+
+                                    <button
+                                        className="pay-btn"
+                                        onClick={() => payNow(order.id)}
+                                    >
+
+                                        <FaCreditCard />
+
+                                        Pay Now
+
+                                    </button>
+
+                                }
+
+                                {
+
+                                    order.status === "PENDING" &&
+
+                                    <button
+                                        className="cancel-btn"
+                                        onClick={() => cancelOrder(order.id)}
+                                    >
+
+                                        <FaTimesCircle />
+
+                                        Cancel
+
+                                    </button>
+
+                                }
+
+                                {
+
+                                    order.status === "PAID" &&
+
+                                    <button
+                                        className="buy-btn"
+                                        onClick={buyAgain}
+                                    >
+
+                                        <FaRedo />
+
+                                        Buy Again
+
+                                    </button>
+
+                                }
+
+                                <button
+                                    className="invoice-btn"
+                                    onClick={() =>
+                                        toast.success(
+                                            "Invoice feature coming soon."
+                                        )
+                                    }
+                                >
+
+                                    <FaMoneyBillWave />
+
+                                    Invoice
+
+                                </button>
+
+                            </div>
+
                         </div>
 
-                    ))
+                    </div>
 
-                )
+                ))
 
             }
 
