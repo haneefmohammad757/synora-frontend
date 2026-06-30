@@ -49,7 +49,7 @@ const Auth = ({ mode }) => {
 
         if (!username || !password) {
 
-            alert("Please enter username and password.");
+            toast("Please enter username and password.");
 
             return;
 
@@ -115,7 +115,7 @@ const Auth = ({ mode }) => {
 
             console.log(error);
 
-            alert("Invalid username or password.");
+            toast.error("Invalid username or password.");
 
         }
 
@@ -147,7 +147,7 @@ const Auth = ({ mode }) => {
 
         ) {
 
-            alert("Please fill all fields.");
+            toast("Please fill all fields.");
 
             return;
 
@@ -155,7 +155,7 @@ const Auth = ({ mode }) => {
 
         if (registerPassword !== confirmPassword) {
 
-            alert("Passwords do not match.");
+            toast.error("Passwords do not match.");
 
             return;
 
@@ -175,7 +175,7 @@ const Auth = ({ mode }) => {
 
 });
 
-            alert("Registration Successful.");
+            toast.success("Registration Successful.");
 
             navigate("/login");
 
@@ -185,7 +185,7 @@ const Auth = ({ mode }) => {
 
             console.log(error);
 
-            alert("Registration Failed.");
+            toast.error("Registration Failed.");
 
         }
 

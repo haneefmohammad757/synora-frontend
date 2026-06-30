@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Deals from "../components/Deals";

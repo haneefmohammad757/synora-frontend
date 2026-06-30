@@ -1,280 +1,203 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import toast from "react-hot-toast";
-import {
-    FaUserCircle,
-    FaEnvelope,
-    FaUserShield,
-    FaShoppingBag,
-    FaHeart,
-    FaShoppingCart,
-    FaEdit,
-    FaSignOutAlt
-} from "react-icons/fa";
+import "./Orders.css";
 
-import "./Profile.css";
-
-const Profile = () => {
+const Orders = () => {
 
     const navigate = useNavigate();
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
 
-    const [ordersCount, setOrdersCount] = useState(0);
+    const userId = currentUser?.id;
 
-    const [wishlistCount, setWishlistCount] = useState(0);
+    const [orders, setOrders] = useState([]);
 
-    const [cartCount, setCartCount] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
-        if (!currentUser) {
+        if (!userId) {
 
             navigate("/login");
-
             return;
 
         }
 
-        loadProfileData();
+        fetchOrders();
 
     }, []);
 
-    const loadProfileData = async () => {
+    const fetchOrders = async () => {
 
         try {
 
-            const orders = await axios.get(
+            const response = await axios.get(`/orders/${userId}`);
 
-                `/orders/${currentUser.id}`
-
-            );
-
-            setOrdersCount(orders.data.length);
+            setOrders(response.data);
 
         }
 
-        catch (err) {
+        catch (error) {
 
-            console.log(err);
-
-        }
-
-        try {
-
-            const wishlist = await axios.get(
-
-                `/wishlist/${currentUser.id}`
-
-            );
-
-            setWishlistCount(wishlist.data.length);
+            console.error(error);
 
         }
 
-        catch (err) {
+        finally {
 
-            console.log(err);
-
-        }
-
-        try {
-
-            const cart = await axios.get(
-
-                `/cart/${currentUser.id}`
-
-            );
-
-            setCartCount(
-
-                cart.data.items
-
-                    ?
-
-                    cart.data.items.length
-
-                    :
-
-                    0
-
-            );
-
-        }
-
-        catch (err) {
-
-            console.log(err);
+            setLoading(false);
 
         }
 
     };
 
-    const logout = () => {
+    if (loading) {
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("user");
-
-        toast.success("Logged out successfully.");
-
-        navigate("/login");
-
-    };
-
-    if (!currentUser) {
-
-        return null;
+        return <h2 className="loading">Loading Orders...</h2>;
 
     }
 
     return (
 
-        <div className="profile-page">
+        <div className="orders-page">
 
-            <div className="profile-card">
+            <h1>My Orders</h1>
 
-                <div className="profile-avatar">
+            {
 
-                    <FaUserCircle />
+                orders.length === 0 ?
 
-                </div>
+                (
 
-                <h2>
+                    <h2 className="empty-orders">
 
-                    {currentUser.username}
+                        No orders placed yet.
 
-                </h2>
+                    </h2>
 
-                <span className="profile-role">
+                )
 
-                    {currentUser.role}
+                :
 
-                </span>
+                (
 
-                <div className="profile-info">
+                    orders.map((order) => (
 
-                    <div className="info-row">
+                        <div
+                            className="order-card"
+                            key={order.id}
+                        >
 
-                        <FaEnvelope />
+                            <div className="order-header">
 
-                        <span>
+                                <div>
 
-                            {currentUser.email || "Not Available"}
+                                    <h3>
 
-                        </span>
+                                        Order #{order.id}
 
-                    </div>
+                                    </h3>
 
-                    <div className="info-row">
+                                    <p>
 
-                        <FaUserShield />
+                                        {new Date(order.orderDate).toLocaleString()}
 
-                        <span>
+                                    </p>
 
-                            {currentUser.role}
+                                </div>
 
-                        </span>
+                                <span
+                                    className={`status ${(order.status || "PENDING").toLowerCase()}`}
+                                >
 
-                    </div>
+                                    {order.status || "PENDING"}
 
-                </div>
+                                </span>
 
-                <div className="profile-stats">
+                            </div>
 
-                    <div className="stat-card">
+                            <hr />
 
-                        <FaShoppingBag />
+                            {
 
-                        <h3>
+                                order.items?.map((item) => (
 
-                            {ordersCount}
+                                    <div
+                                        className="order-body"
+                                        key={item.id}
+                                    >
 
-                        </h3>
+                                        <img
+                                            className="order-image"
+                                            src={
+                                                item.imageUrl ||
+                                                "https://placehold.co/120x120?text=No+Image"
+                                            }
+                                            alt={item.productName}
+                                        />
 
-                        <p>
+                                        <div className="order-details">
 
-                            Orders
+                                            <h3>
 
-                        </p>
+                                                {item.productName}
 
-                    </div>
+                                            </h3>
 
-                    <div className="stat-card">
+                                            <p>
 
-                        <FaHeart />
+                                                Price : ₹ {item.price}
 
-                        <h3>
+                                            </p>
 
-                            {wishlistCount}
+                                            <p>
 
-                        </h3>
+                                                Quantity : {item.quantity}
 
-                        <p>
+                                            </p>
 
-                            Wishlist
+                                            <h4>
 
-                        </p>
+                                                Subtotal :
 
-                    </div>
+                                                ₹ {(item.price * item.quantity).toFixed(2)}
 
-                    <div className="stat-card">
+                                            </h4>
 
-                        <FaShoppingCart />
+                                        </div>
 
-                        <h3>
+                                    </div>
 
-                            {cartCount}
+                                ))
 
-                        </h3>
+                            }
 
-                        <p>
+                            <hr />
 
-                            Cart
+                            <div className="order-footer">
 
-                        </p>
+                                <h3>
 
-                    </div>
+                                    Total Amount
 
-                </div>
-                 <div className="profile-actions">
+                                </h3>
 
-                    <button
+                                <h2>
 
-                        className="edit-profile-btn"
+                                    ₹ {order.totalAmount.toFixed(2)}
 
-                        onClick={() =>
+                                </h2>
 
-                            toast("Edit Profile feature coming soon.")
+                            </div>
 
-                        }
+                        </div>
 
-                    >
+                    ))
 
-                        <FaEdit />
+                )
 
-                        Edit Profile
-
-                    </button>
-
-                    <button
-
-                        className="logout-profile-btn"
-
-                        onClick={logout}
-
-                    >
-
-                        <FaSignOutAlt />
-
-                        Logout
-
-                    </button>
-
-                </div>
-
-            </div>
+            }
 
         </div>
 
@@ -282,4 +205,4 @@ const Profile = () => {
 
 };
 
-export default Profile;
+export default Orders;

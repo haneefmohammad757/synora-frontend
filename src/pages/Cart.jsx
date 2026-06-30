@@ -73,7 +73,7 @@ const userId = currentUser?.id;
 
             console.error(error);
 
-            alert("Unable to remove item.");
+            toast.error("Unable to remove item.");
 
         }
 
